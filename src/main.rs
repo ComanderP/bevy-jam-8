@@ -1,6 +1,6 @@
-use bevy::{asset::AssetMetaCheck, color::palettes::css::AQUAMARINE};
-use bevy::prelude::*;
 use bevy::color::palettes::tailwind::*;
+use bevy::prelude::*;
+use bevy::{asset::AssetMetaCheck, color::palettes::css::AQUAMARINE};
 use bevy_vector_shapes::prelude::*;
 use std::f32::consts::{PI, TAU};
 
@@ -23,15 +23,21 @@ fn draw(mut painter: ShapePainter, time: Res<Time>) {
     painter.hollow = true;
     painter.thickness = 1.0;
     painter.set_color(AMBER_300);
-    painter.arc(100.0, 0.0, TAU * (time.elapsed_secs().rem_euclid(10.0) / (10.0)));
-
+    painter.arc(
+        100.0,
+        0.0,
+        TAU * (time.elapsed_secs().rem_euclid(10.0) / (10.0)),
+    );
 
     painter.hollow = true;
     painter.translate(Vec3::ONE * 200.0);
     painter.thickness = 1.0;
     painter.set_color(AQUAMARINE);
-    painter.arc(100.0, 0.0, PI * (time.elapsed_secs().rem_euclid(20.0) / (10.0)));
-
+    painter.arc(
+        100.0,
+        0.0,
+        PI * (time.elapsed_secs().rem_euclid(20.0) / (10.0)),
+    );
 }
 
 fn setup(mut commands: Commands) {
