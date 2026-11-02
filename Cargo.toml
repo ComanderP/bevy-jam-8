@@ -4,19 +4,23 @@ version = "0.1.0"
 edition = "2024"
 license = "MIT OR Apache-2.0 OR CC0-1.0"
 
-# Compile with Performance Optimizations:
-# https://bevyengine.org/learn/book/getting-started/setup/#compile-with-performance-optimizations
-
-# Enable a small amount of optimization in debug mode
-[profile.dev]
-opt-level = 1
-
-# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
-[profile.dev.package."*"]
-opt-level = 3
 
 [dependencies]
 bevy = "0.20"
+
+# Enable a small amount of optimization in the dev profile.
+[profile.dev]
+# codegen-backend = "cranelift" # There's some problem with dynamic linking and cranelift
+opt-level = 1
+
+# Enable a large amount of optimization in the dev profile for dependencies.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+
 
 # These lints may be important signals about code quality, but normal Bevy code
 # commonly triggers them and the CI workflow treats them as errors, so we've
