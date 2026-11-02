@@ -2,8 +2,15 @@ name: Release
 
 on:
   push:
+    branches: [main]
     tags:
       - '*'
+  workflow_dispatch:
+
+# Only the latest push gets built and uploaded
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   # update with the name of the main binary
@@ -58,7 +65,7 @@ jobs:
           retention-days: 1
 
       - name: Upload binaries to release
-        if: ${{ env.add_binaries_to_github_release == 'true' }}
+        if: ${{ env.add_binaries_to_github_release == 'true' && github.ref_type == 'tag' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -107,7 +114,7 @@ jobs:
           retention-days: 1
 
       - name: Upload binaries to release
-        if: ${{ env.add_binaries_to_github_release == 'true' }}
+        if: ${{ env.add_binaries_to_github_release == 'true' && github.ref_type == 'tag' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -153,7 +160,7 @@ jobs:
           retention-days: 1
 
       - name: Upload binaries to release
-        if: ${{ env.add_binaries_to_github_release == 'true' }}
+        if: ${{ env.add_binaries_to_github_release == 'true' && github.ref_type == 'tag' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -199,7 +206,7 @@ jobs:
           retention-days: 1
 
       - name: Upload binaries to release
-        if: ${{ env.add_binaries_to_github_release == 'true' }}
+        if: ${{ env.add_binaries_to_github_release == 'true' && github.ref_type == 'tag' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -245,7 +252,7 @@ jobs:
           retention-days: 1
 
       - name: Upload binaries to release
-        if: ${{ env.add_binaries_to_github_release == 'true' }}
+        if: ${{ env.add_binaries_to_github_release == 'true' && github.ref_type == 'tag' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -290,8 +297,6 @@ jobs:
           unzip butler.zip
           chmod +x butler
           ./butler -V
-      - uses: olegtarasov/get-tag@v2.1.2
-        id: get_version
       - name: Upload to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
@@ -299,7 +304,7 @@ jobs:
           for channel in $(ls builds); do
             ./butler push \
                 --fix-permissions \
-                --userversion="${{ steps.get_version.outputs.tag }}" \
+                --userversion="${{ github.ref_type == 'tag' && github.ref_name || github.sha }}" \
                 builds/$channel/* \
                 ${{ env.itch_target }}:$channel
           done
