@@ -1,5 +1,8 @@
 use bevy::asset::AssetMetaCheck;
 use bevy::prelude::*;
+use bevy::color::palettes::tailwind::*;
+use bevy_vector_shapes::prelude::*;
+use std::f32::consts::{PI, TAU};
 
 fn main() {
     App::new()
@@ -10,14 +13,24 @@ fn main() {
             meta_check: AssetMetaCheck::Never,
             ..default()
         }))
+        .add_plugins(Shape2dPlugin::default())
         .add_systems(Startup, setup)
+        .add_systems(Update, draw)
         .run();
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn draw(mut painter: ShapePainter, time: Res<Time>) {
+    painter.hollow = true;
+    painter.thickness = 1.0;
+    painter.set_color(AMBER_300);
+    painter.arc(100.0, 0.0, TAU * (time.elapsed_secs().rem_euclid(10.0) / (10.0)));
+
+}
+
+fn setup(mut commands: Commands) {
     commands.spawn(Camera2d);
-    commands.spawn(Sprite {
-        image: asset_server.load("ducky.png"),
-        ..Default::default()
-    });
+    // commands.spawn(Sprite {
+    //     image: asset_server.load("ducky.png"),
+    //     ..Default::default()
+    // });
 }
