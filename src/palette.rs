@@ -1,0 +1,24 @@
+use bevy::color::*;
+
+pub const COLOR00 : Color = Color::srgb_u8(0x85, 0xda, 0xeb);
+pub const COLOR01 : Color = Color::srgb_u8(0x5f, 0xc9, 0xe7);
+pub const COLOR02 : Color = Color::srgb_u8(0x5f, 0xa1, 0xe7);
+pub const COLOR03 : Color = Color::srgb_u8(0x5f, 0x6e, 0xe7);
+pub const COLOR04 : Color = Color::srgb_u8(0x4c, 0x60, 0xaa);
+pub const COLOR05 : Color = Color::srgb_u8(0x44, 0x47, 0x74);
+pub const COLOR06 : Color = Color::srgb_u8(0x32, 0x31, 0x3b);
+pub const COLOR07 : Color = Color::srgb_u8(0x46, 0x3c, 0x5e);
+pub const COLOR08 : Color = Color::srgb_u8(0x5d, 0x47, 0x76);
+pub const COLOR09 : Color = Color::srgb_u8(0x85, 0x53, 0x95);
+pub const COLOR10 : Color = Color::srgb_u8(0xab, 0x58, 0xa8);
+pub const COLOR11 : Color = Color::srgb_u8(0xca, 0x60, 0xae);
+pub const COLOR12 : Color = Color::srgb_u8(0xf3, 0xa7, 0x87);
+pub const COLOR13 : Color = Color::srgb_u8(0xf5, 0xda, 0xa7);
+pub const COLOR14 : Color = Color::srgb_u8(0x8d, 0xd8, 0x94);
+pub const COLOR15 : Color = Color::srgb_u8(0x5d, 0xc1, 0x90);
+pub const COLOR16 : Color = Color::srgb_u8(0x4a, 0xb9, 0xa3);
+pub const COLOR17 : Color = Color::srgb_u8(0x45, 0x93, 0xa5);
+pub const COLOR18 : Color = Color::srgb_u8(0x5e, 0xfd, 0xf7);
+pub const COLOR19 : Color = Color::srgb_u8(0xff, 0x5d, 0xcc);
+pub const COLOR20 : Color = Color::srgb_u8(0xfd, 0xfe, 0x89);
+pub const COLOR21 : Color = Color::srgb_u8(0xff, 0xff, 0xff);
